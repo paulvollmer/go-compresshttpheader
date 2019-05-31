@@ -4,12 +4,13 @@ import (
 	"bytes"
 	"compress/gzip"
 	"fmt"
+	"io"
 
 	"github.com/paulvollmer/go-compresshttpheader"
 )
 
 func main() {
-	textContentType := `{
+	textContentType := []byte(`{
 	  "Cache-Control":["no-cache","post-check=0, pre-check=0"],
 	  "Content-Type":["text/html; charset=UTF-8"],
 	  "Date":["Fri, 24 May 2019 22:06:06 GMT"],
@@ -21,19 +22,19 @@ func main() {
 	  "Strict-Transport-Security":["max-age=63072000; preload"],
 	  "Vary":["Accept-Encoding"],
 	  "X-Content-Type-Options":["nosniff"]
-	}`
+	}`)
 
 	compressGzip(textContentType)
-	compressHeader(textContentType)
+	compressHeader(bytes.NewReader(textContentType))
 }
 
-func compressGzip(source string) {
+func compressGzip(source []byte) {
 	var b bytes.Buffer
 	gz, err := gzip.NewWriterLevel(&b, gzip.BestCompression)
 	if err != nil {
 		panic(err)
 	}
-	if _, err := gz.Write([]byte(source)); err != nil {
+	if _, err := gz.Write(source); err != nil {
 		panic(err)
 	}
 	if err := gz.Flush(); err != nil {
@@ -45,7 +46,7 @@ func compressGzip(source string) {
 	fmt.Println("GZIP SIZE:\t", len(b.Bytes()))
 }
 
-func compressHeader(source string) {
+func compressHeader(source io.Reader) {
 	result, err := compresshttpheader.Encode(source)
 	if err != nil {
 		panic(err)

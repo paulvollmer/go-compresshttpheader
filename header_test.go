@@ -2,10 +2,11 @@ package compresshttpheader
 
 import (
 	"testing"
+	"bytes"
 )
 
 func TestEncodeDecode(t *testing.T) {
-	testSource := `{
+	testSource := []byte(`{
 		"Cache-Control":["no-cache","post-check=0, pre-check=0"],
 		"Content-Type":["text/html; charset=UTF-8"],
 		"Date":["Fri, 24 May 2019 22:06:06 GMT"],
@@ -17,18 +18,19 @@ func TestEncodeDecode(t *testing.T) {
 		"Strict-Transport-Security":["max-age=63072000; preload"],
 		"Vary":["Accept-Encoding"],
 		"X-Content-Type-Options":["nosniff"]
-		}`
+		}`)
 
-	compressedResult, err := Encode(testSource)
+
+	compressedResult, err := Encode(bytes.NewReader(testSource))
 	if err != nil {
 		t.Error(err)
 	}
 
-	decompressedResult, err := Decode(compressedResult)
+	decompressedResult, err := Decode(bytes.NewReader(compressedResult))
 	if err != nil {
 		t.Error(err)
 	}
-	if testSource != string(decompressedResult) {
+	if !bytes.Equal(testSource, decompressedResult) {
 		t.Error("decompressedResult not equal")
 	}
 }
