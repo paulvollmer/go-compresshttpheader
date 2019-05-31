@@ -6,6 +6,7 @@ import (
 	"io"
 )
 
+// Encode HTTP Header data
 func Encode(source io.Reader) ([]byte, error) {
 	var b bytes.Buffer
 	zw, err := flate.NewWriterDict(&b, flate.BestCompression, dictionary)
@@ -23,6 +24,7 @@ func Encode(source io.Reader) ([]byte, error) {
 	return b.Bytes(), nil
 }
 
+// Decode HTTP Header data
 func Decode(source io.Reader) ([]byte, error) {
 	zr := flate.NewReaderDict(source, dictionary)
 	var b bytes.Buffer
