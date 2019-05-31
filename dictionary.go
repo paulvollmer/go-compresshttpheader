@@ -96,8 +96,14 @@ const dictionaryValues = `true` +
 	`Unauthorized` +
 	`timeout=` +
 	`max=` +
+	`max-age=` +
 	`Max-Forwards` +
-	`mode=block`
+	`mode=block` +
+	`post-check=` +
+	`pre-check=` +
+	`preload` +
+	`secure` +
+	`HttpOnly`
 
 const dictionaryContentTypes = `application/EDI-X12` +
 	`application/EDIFACT` +
@@ -165,4 +171,34 @@ const dictionaryContentTypes = `application/EDI-X12` +
 	`application/vnd.openxmlformats-officedocument.wordprocessingml.document` +
 	`application/vnd.mozilla.xul+xml`
 
-var dictionary = []byte(dictionaryHeader + dictionaryValues + dictionaryContentTypes)
+var dictionaryDate = `Mon,` +
+	`Tue,` +
+	`Wed,` +
+	`Thu,` +
+	`Fri,` +
+	`Sat,` +
+	`Sun,` +
+	` Jan ` +
+	` Feb ` +
+	` Mar ` +
+	` Apr ` +
+	` May ` +
+	` Jun ` +
+	` Jul ` +
+	` Aug ` +
+	` Sep ` +
+	` Oct ` +
+	` Nov ` +
+	` Dec ` +
+	` UT` +
+	` GMT` +
+	` EDT` +
+	` EST` +
+	` CDT` +
+	` CST` +
+	` MDT` +
+	` MST` +
+	` PDT` +
+	` PST`
+
+var dictionary = []byte(dictionaryHeader + dictionaryValues + dictionaryContentTypes + dictionaryDate)

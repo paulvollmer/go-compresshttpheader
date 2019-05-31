@@ -1,8 +1,8 @@
 package compresshttpheader
 
 import (
-	"testing"
 	"bytes"
+	"testing"
 )
 
 func TestEncodeDecode(t *testing.T) {
@@ -19,7 +19,6 @@ func TestEncodeDecode(t *testing.T) {
 		"Vary":["Accept-Encoding"],
 		"X-Content-Type-Options":["nosniff"]
 		}`)
-
 
 	compressedResult, err := Encode(bytes.NewReader(testSource))
 	if err != nil {

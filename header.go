@@ -13,11 +13,11 @@ func Encode(source io.Reader) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	_, err = io.Copy(zw, source);
+	_, err = io.Copy(zw, source)
 	if err != nil {
 		return nil, err
 	}
-	err = zw.Close();
+	err = zw.Close()
 	if err != nil {
 		return nil, err
 	}
@@ -28,11 +28,11 @@ func Encode(source io.Reader) ([]byte, error) {
 func Decode(source io.Reader) ([]byte, error) {
 	zr := flate.NewReaderDict(source, dictionary)
 	var b bytes.Buffer
-	_, err := io.Copy(&b, zr);
+	_, err := io.Copy(&b, zr)
 	if err != nil {
 		return nil, err
 	}
-	err = zr.Close();
+	err = zr.Close()
 	if err != nil {
 		return nil, err
 	}
