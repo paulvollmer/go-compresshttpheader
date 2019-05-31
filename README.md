@@ -12,7 +12,7 @@ go get github.com/paulvollmer/go-compresshttpheader
 
 ```
 GZIP SIZE:   338
-FLATE SIZE:  243 <- compresshttpheader
+FLATE SIZE:  201 <- compresshttpheader
 ```
 
 ## License
